@@ -20,3 +20,4 @@ lt = response.split("\"lt\" value=\"")[1].split("\"")[0]
 #                         '_eventId' : 'submit',
 #                         'submit' : '_submit'})
 print(lt)
+print(response)
