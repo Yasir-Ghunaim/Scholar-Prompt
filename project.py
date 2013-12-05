@@ -3,6 +3,7 @@ import urllib2
 import cookielib
 import sys
 
+#Given a username and a password this function will attempt to login in to Scholar
 def login(username, password):
 	url = "https://auth.vt.edu/login?service=https%3A%2F%2Fscholar.vt.edu%2Fsakai-login-tool%2Fcontainer"
 
@@ -23,13 +24,22 @@ def login(username, password):
 							 '_eventId' : 'submit',
 							 'submit' : '_submit'})
 	response = opener.open(url,data)
-	if not response.info().getheader('Set-Cookie'):
-		print("Invalid username or password")
-	else:
+	if response.info().getheader('Set-Cookie'):
+		#login is successful when cookie is set
 		print("Login successful")
+	else:
+		#cookie will be empty when login fail 
+		print("Invalid username or password")
 
+def main():
+	#get username and password from user and attempt to login
+	loginInfo = sys.stdin.readline()
+	username = loginInfo.split(" ")[0]
+	password = loginInfo.split(" ")[1]
+	login(username, password)
 
-loginInfo = sys.stdin.readline()
-username = loginInfo.split(" ")[0]
-password = loginInfo.split(" ")[1]
-login(username, password)
+#This is python style to call main function
+#basically when program start the defined varible __name__
+#will hold the value "__main__" in which case we call our function main
+if __name__ ==  "__main__":
+	main()
