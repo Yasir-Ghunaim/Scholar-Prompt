@@ -4,12 +4,8 @@ import cookielib
 import sys
 
 #Given a username and a password this function will attempt to login in to Scholar
-def login(username, password):
+def login(opener, jar, username, password):
 	url = "https://auth.vt.edu/login?service=https%3A%2F%2Fscholar.vt.edu%2Fsakai-login-tool%2Fcontainer"
-
-	#Enable cookies 
-	jar = cookielib.FileCookieJar("cookies")
-	opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(jar))
 
 	#HTTP GET to grab lt parameter that is used in logging in
 	response = opener.open(url).read()
@@ -27,16 +23,31 @@ def login(username, password):
 	if response.info().getheader('Set-Cookie'):
 		#login is successful when cookie is set
 		print("Login successful")
+		return True
 	else:
 		#cookie will be empty when login fail 
-		print("Invalid username or password")
+		print("Invalid username or password\n")
+		return False
 
 def main():
-	#get username and password from user and attempt to login
-	loginInfo = sys.stdin.readline()
-	username = loginInfo.split(" ")[0]
-	password = loginInfo.split(" ")[1]
-	login(username, password)
+	isLogged = False
+	
+	while not isLogged:
+		#Enable cookies
+		global jar, opener 
+		jar = cookielib.FileCookieJar("cookies")
+		opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(jar))
+		
+		#get username and password from user and attempt to login
+		print("Enter username and password: ")
+		loginInfo = sys.stdin.readline()
+		username = loginInfo.split(" ")[0]
+		password = loginInfo.split(" ")[1]
+		isLogged = login(opener, jar, username, password)
+	
+	
+	
+	
 
 #This is python style to call main function
 #basically when program start the defined varible __name__
