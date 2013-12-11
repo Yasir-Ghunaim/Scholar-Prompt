@@ -1,7 +1,11 @@
 def converter(file, toType):
     f = open(file, 'r')
-    f.read()
+    char = f.read(1);
+    print("==================== %s",char)
+    p = f.read()
+    print p
     print f
+    f.close()
 
-if __name__ == "__main__":
-    converter('sample.txt', 'hex')
+def asciiToBin(file):
+    print "implementing"
