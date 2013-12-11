@@ -1,3 +1,4 @@
+
 class Converter:
     def __init__(self):
         self.filename = None
@@ -23,3 +24,5 @@ class Converter:
 c = Converter()
 c.newFile('sample.txt')
 print c.getOriginalData()
+
+

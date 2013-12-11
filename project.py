@@ -11,24 +11,24 @@ class Example(QtGui.QWidget):
         
     def initUI(self):      
 
-        #self.btn = QtGui.QPushButton('Dialog', self)
-        #self.btn.move(20, 20)
-        #self.btn.clicked.connect(self.showDialog)
+        self.openBtn = QtGui.QPushButton('Open', self)
+        self.openBtn.move(10, 10)
+        self.openBtn.clicked.connect(self.openFile)
         
         self.inputTextEdit = QtGui.QTextEdit(self)
-        self.inputTextEdit.move(10, 10)
+        self.inputTextEdit.move(10, 40)
         
         self.outputTextEdit = QtGui.QTextEdit(self)
-        self.outputTextEdit.move(310, 10)
+        self.outputTextEdit.move(310, 40)
         
         self.setGeometry(100, 100, 600, 400)
         self.setWindowTitle('Input dialog')
         self.show()
         
-    #def showDialog(self):
-        
-     #   text, ok = QtGui.QInputDialog.getText(self, 'Input Dialog', 
-      #      'Enter your name:')
+    def openFile(self):
+        fileName = QtGui.QFileDialog.getOpenFileName(self, "Open File","","Files (*.*)")
+        print fileName
+        #text, ok = QtGui.QInputDialog.getText(self, 'Input Dialog', 'Enter your name:')
         
        # if ok:
         #    self.le.setText(str(text))
