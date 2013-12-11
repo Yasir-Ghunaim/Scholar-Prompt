@@ -2,27 +2,37 @@
 class Converter:
     def __init__(self):
         self.filename = None
-        self.convertTo = None
         self.data = None
 
+    # =================================
+    # takes the file that is to be converted
+    # =================================
     def newFile(self, filename):
         self.filename = filename
         f = open(self.filename, 'r')
         self.data = f.read()
         f.close()
         
-    def converter(self, convertTo):
-        self.convertTo = convertTo
-        
+    # =================================
+    # takes the type to convert to and returns the converted data
+    # =================================
+    def convertTo(self, convertTo):
+        if convertTo.lower() == 'binary':
+            value = self.toBinary()
+        else:
+            value = 'TODO'
+        return value
 
-    def asciiToBin(self):
-        return "implementing"
+    # =================================
+    # convert to binary
+    # =================================
+    def toBinary(self):
+        binary = bin(reduce(lambda x, y: 256*x+y, (ord(c) for c in self.data), 0))
+        return binary[2:]
 
+    # =================================
+    # return original data
+    # =================================
     def getOriginalData(self):
         return self.data
-
-c = Converter()
-c.newFile('sample.txt')
-print c.getOriginalData()
-
 
