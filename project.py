@@ -1,40 +1,57 @@
-import mechanize
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+
+"""
+ZetCode PyQt4 tutorial 
+
+In this example, we receive data from
+a QtGui.QInputDialog dialog. 
+
+author: Jan Bodnar
+website: zetcode.com 
+last edited: October 2011
+"""
+
 import sys
-import getpass
-
-browser = mechanize.Browser()
-
-def login(username, password):
-	url = "https://auth.vt.edu/login?service=https%3A%2F%2Fscholar.vt.edu%2Fsakai-login-tool%2Fcontainer"
-	browser.open(url)
-	browser.select_form(nr = 0)
-	browser.form['username'] = username
-	browser.form['password'] = password
-	browser.submit()
-	if browser.response().info().getheader('Set-Cookie'):
-		#login is successful when cookie is set
-		print("Login successful")
-		return True
-	else:
-		#cookie will be empty when login fail 
-		print("Invalid username or password")
-		return False
+from PyQt4 import QtGui
 
 
+class Example(QtGui.QWidget):
+    
+    def __init__(self):
+        super(Example, self).__init__()
+        self.initUI()
+        
+    def initUI(self):      
+
+        #self.btn = QtGui.QPushButton('Dialog', self)
+        #self.btn.move(20, 20)
+        #self.btn.clicked.connect(self.showDialog)
+        
+        self.inputTextEdit = QtGui.QTextEdit(self)
+        self.inputTextEdit.move(10, 10)
+        
+        self.outputTextEdit = QtGui.QTextEdit(self)
+        self.outputTextEdit.move(310, 10)
+        
+        self.setGeometry(100, 100, 600, 400)
+        self.setWindowTitle('Input dialog')
+        self.show()
+        
+    #def showDialog(self):
+        
+     #   text, ok = QtGui.QInputDialog.getText(self, 'Input Dialog', 
+      #      'Enter your name:')
+        
+       # if ok:
+        #    self.le.setText(str(text))
+        
 def main():
-	isLogged = False
-	
-	while not isLogged:
-		#get username and password from user and attempt to login
-		print("Enter username and password: ")
-		print "Username: ",
-		username = str.strip(sys.stdin.readline())
-		password = getpass.getpass()
-		isLogged = login(username, password)
-	
-	#if isLogged:
-	#	print browser.response().read();
-	
+    
+    app = QtGui.QApplication(sys.argv)
+    ex = Example()
+    sys.exit(app.exec_())
 
-if __name__ ==  "__main__":
-	main()
+
+if __name__ == '__main__':
+    main()
