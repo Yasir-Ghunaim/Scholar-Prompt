@@ -15,7 +15,7 @@ class Example(QtGui.QWidget):
 		# open button
         self.openBtn = QtGui.QPushButton('Open', self)
         self.openBtn.move(10, 10)
-        self.openBtn.clicked.connect(self.openFile)
+        self.openBtn.clicked.connect(self.openFileButton)
         # save button
         self.saveBtn = QtGui.QPushButton('Save', self)
         self.saveBtn.move(310, 10)
@@ -29,7 +29,7 @@ class Example(QtGui.QWidget):
         # convert button
         self.openBtn = QtGui.QPushButton('Convert', self)
         self.openBtn.move(100, 240)
-        #self.openBtn.clicked.connect(self.openFile)
+        self.openBtn.clicked.connect(self.convertToButton)
         # convert to combo box
         self.convertToCombo = QtGui.QComboBox(self)
         self.convertToCombo.addItem("Binary")
@@ -43,15 +43,16 @@ class Example(QtGui.QWidget):
         
         self.converter = Converter()
         
-    def openFile(self):
+    def openFileButton(self):
         fileName = QtGui.QFileDialog.getOpenFileName(self, "Open File","","Files (*.*)")
         self.converter.newFile(fileName)
         self.inputTextEdit.setText(self.converter.getOriginalData())
-        #print fileName
-        #text, ok = QtGui.QInputDialog.getText(self, 'Input Dialog', 'Enter your name:')
         
-       # if ok:
-        #    self.le.setText(str(text))
+    def convertToButton(self):
+		convertType = str(self.convertToCombo.currentText())
+		convertedDate = self.converter.convertTo(convertType)
+		self.outputTextEdit.setText(convertedDate)
+		
         
 def main():
     
