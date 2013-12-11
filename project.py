@@ -1,20 +1,7 @@
 #!/usr/bin/python
-# -*- coding: utf-8 -*-
-
-"""
-ZetCode PyQt4 tutorial 
-
-In this example, we receive data from
-a QtGui.QInputDialog dialog. 
-
-author: Jan Bodnar
-website: zetcode.com 
-last edited: October 2011
-"""
 
 import sys
 from PyQt4 import QtGui
-
 
 class Example(QtGui.QWidget):
     
