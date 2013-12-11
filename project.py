@@ -28,7 +28,7 @@ class Example(QtGui.QWidget):
         self.outputTextEdit.move(310, 40)
         # convert button
         self.openBtn = QtGui.QPushButton('Convert', self)
-        self.openBtn.move(100, 240)
+        self.openBtn.move(150, 240)
         self.openBtn.clicked.connect(self.convertToButton)
         # convert to combo box
         self.convertToCombo = QtGui.QComboBox(self)
@@ -53,6 +53,7 @@ class Example(QtGui.QWidget):
         self.inputTextEdit.setText(self.converter.data)
         
     def convertToButton(self):
+        self.converter.data = str(self.inputTextEdit.toPlainText())
         convertType = str(self.convertToCombo.currentText())
         convertedDate = self.converter.convertTo(convertType)
         self.outputTextEdit.setText(convertedDate)
