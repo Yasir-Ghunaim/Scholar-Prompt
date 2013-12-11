@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/local/bin/python
 
 import sys
 from convert import Converter
@@ -12,7 +12,7 @@ class Example(QtGui.QWidget):
         
     def initUI(self):      
 
-		# open button
+        # open button
         self.openBtn = QtGui.QPushButton('Open', self)
         self.openBtn.move(10, 10)
         self.openBtn.clicked.connect(self.openFileButton)
@@ -32,9 +32,12 @@ class Example(QtGui.QWidget):
         self.openBtn.clicked.connect(self.convertToButton)
         # convert to combo box
         self.convertToCombo = QtGui.QComboBox(self)
-        self.convertToCombo.addItem("Binary")
-        self.convertToCombo.addItem("Hex")
-        self.convertToCombo.addItem("ASCII")
+        self.convertToCombo.addItem("Binary to ASCII")
+        self.convertToCombo.addItem("ASCII to Binary")
+        self.convertToCombo.addItem("Hex to Binary")
+        self.convertToCombo.addItem("Binary to Hex")
+        self.convertToCombo.addItem("ASCII to Hex")
+        self.convertToCombo.addItem("Hex to ASCII")
         self.convertToCombo.move(20, 240)
         
         self.setGeometry(100, 100, 600, 400)
@@ -49,10 +52,10 @@ class Example(QtGui.QWidget):
         self.inputTextEdit.setText(self.converter.getOriginalData())
         
     def convertToButton(self):
-		convertType = str(self.convertToCombo.currentText())
-		convertedDate = self.converter.convertTo(convertType)
-		self.outputTextEdit.setText(convertedDate)
-		
+        convertType = str(self.convertToCombo.currentText())
+        convertedDate = self.converter.convertTo(convertType)
+        self.outputTextEdit.setText(convertedDate)
+        
         
 def main():
     
