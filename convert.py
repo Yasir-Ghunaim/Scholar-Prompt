@@ -40,24 +40,38 @@ class Converter:
     # converters
     # =================================
     def asciiToBinary(self, string):
-        binary = bin(reduce(lambda x, y: 256*x+y, (ord(c) for c in string), 0))
-        return binary[2:]
+        try:
+			binary = bin(reduce(lambda x, y: 256*x+y, (ord(c) for c in string), 0))
+			binary = binary[2:]
+        except:
+			binary = 'Given input was not proper ASCII'
+        return binary
 
     def binToAscii(self, string):
-        #TODO: prevent from non ascii file
-        #if len(self.data)%8 == 0:
-        bitstring = string
-        bitstring = -len(bitstring) % 8 * '0' + bitstring
-        string_blocks = (bitstring[i:i+8] for i in range(0, len(bitstring), 8))
-        strg = ''.join(chr(int(char, 2)) for char in string_blocks)
-        return strg
+		try:
+			#TODO: prevent from non ascii file
+			#if len(self.data)%8 == 0:
+			bitstring = string
+			bitstring = -len(bitstring) % 8 * '0' + bitstring
+			string_blocks = (bitstring[i:i+8] for i in range(0, len(bitstring), 8))
+			strg = ''.join(chr(int(char, 2)) for char in string_blocks)
+		except:
+			strg = 'Given input was not proper binary'
+		return strg
 
     def binToHex(self, string):
-        h = hex(int(string, 2))[2:-1]
-        hblock = (h[i:i+2] for i in range(0, len(h), 2))
-        h = ''.join((char + ' ') for char in hblock)
-        return h
+		try:
+			h = hex(int(string, 2))[2:-1]
+			hblock = (h[i:i+2] for i in range(0, len(h), 2))
+			h = ''.join((char + ' ') for char in hblock)
+		except:
+			h = 'Given input was not proper binary'
+		return h
 
     def hexToBin(self, string):
-        b = string.replace(' ', '')
-        return bin(int(b, 16))[2:]
+		try:
+			b = string.replace(' ', '')
+			b = bin(int(b, 16))[2:]
+		except:
+			b = 'Given input was not proper hex'
+		return b
