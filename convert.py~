@@ -7,5 +7,10 @@ def converter(file, toType):
     print f
     f.close()
 
+<<<<<<< HEAD
+if __name__ == "__main__":
+    converter('sample.txt', 'hex')
+=======
 def asciiToBin(file):
     print "implementing"
+>>>>>>> 21ed93703f69e0b45225dfad0ae509a408abb0d5
