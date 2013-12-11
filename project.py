@@ -48,14 +48,15 @@ class Example(QtGui.QWidget):
         
     def openFileButton(self):
         fileName = QtGui.QFileDialog.getOpenFileName(self, "Open File","","Files (*.*)")
+        #read file and show its content in the input field
         self.converter.newFile(fileName)
-        self.inputTextEdit.setText(self.converter.getOriginalData())
+        self.inputTextEdit.setText(self.converter.data)
         
     def convertToButton(self):
         convertType = str(self.convertToCombo.currentText())
         convertedDate = self.converter.convertTo(convertType)
         self.outputTextEdit.setText(convertedDate)
-        
+
         
 def main():
     
