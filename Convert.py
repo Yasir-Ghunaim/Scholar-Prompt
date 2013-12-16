@@ -1,9 +1,14 @@
 import string
 
+def enum(**enums):
+	return type('Enum', (), enums)
+
 class Converter:
 	def __init__(self):
 		self.filename = None
 		self.data = None
+		self.dataType = None
+		self.DataType = enum(ASCII='ASCII', Binary='BINARY', Hex='HEX')
 		
 	# =================================
 	# takes the file that is to be converted
@@ -13,19 +18,22 @@ class Converter:
 		f = open(self.filename, 'r')
 		self.data = f.read()
 		f.close()
+		#check data type
 		self.detectType(self.data)
 		
+	# =================================
+	# detects the type of file's content
+	# =================================
 	def detectType(self, data):
-		dataType = 'None'
+		self.dataType = self.DataType.ASCII
 		#binary detection
-		
+		if all((c in set('01')) for c in self.data):
+			self.dataType = self.DataType.BINARY
 		#hex detection
-		if all(c in string.hexdigits for c in self.data):
-			dataType = 'Hex'
-		#ASCII detection
-		
-		print(dataType)
-		
+		elif all((c in string.hexdigits) for c in self.data):
+			self.dataType = DataType.HEX
+		#temporary print datatype
+		print self.dataType
 	# =================================
 	# takes the type to convert to and returns the converted data
 	# =================================
