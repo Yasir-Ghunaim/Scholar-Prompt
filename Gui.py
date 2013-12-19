@@ -1,4 +1,5 @@
 import sys
+import os
 from Convert import Converter
 from PyQt4 import QtGui
 
@@ -61,6 +62,11 @@ class Gui(QtGui.QWidget):
     def convertToButton(self):
         self.converter.data = str(self.inputTextEdit.toPlainText())
         convertType = str(self.convertToCombo.currentText())
-        convertedDate = self.converter.convertTo(convertType)
+        #store data in a temp file
+        tempFile = open("tempGui", 'w+')
+        tempFile.write(self.converter.data)
+        tempFile.close()
+        convertedDate = self.converter.convertTo("./tempGui", convertType)
+        print convertedDate
         self.outputTextEdit.setText(convertedDate)
-
+        os.remove("./tempGui")
