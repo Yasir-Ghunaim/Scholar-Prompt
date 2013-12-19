@@ -62,22 +62,26 @@ class Converter:
     # =================================
     def asciiToBinary(self, fString):
         value = ''
-        fString.seek(0)
+        if fString != sys.stdin:
+            fString.seek(0)
         while 1:
             char = fString.read(1)
             if not char: break
             char = ord(char) 
             strg = ''.join('01'[(char >> x) & 1] for x in xrange(7, -1, -1))
             sys.stdout.write(strg)  
-            value += str(strg)          
+            value += str(strg)
         print ""
         return value
 
     def binToAscii(self, fString):
         value = ''
-        fString.seek(0,2)
-        flength = fString.tell()
-        fString.seek(0)
+        if fString != sys.stdin:
+            fString.seek(0,2)
+            flength = fString.tell()
+            fString.seek(0)
+        else:
+            flength = 8
         try:
             for i in range(0, flength/8):
                 char = fString.read(8)
@@ -93,9 +97,12 @@ class Converter:
 
     def binToHex(self, fString):
         value = ''
-        fString.seek(0,2)
-        flength = fString.tell()
-        fString.seek(0)
+        if fString != sys.stdin:
+            fString.seek(0,2)
+            flength = fString.tell()
+            fString.seek(0)
+        else:
+            flength = 4
         try:
             for i in range(0, flength/4):
                 char = fString.read(4)
@@ -111,9 +118,12 @@ class Converter:
 
     def hexToBin(self, fString):
         value = ''
-        fString.seek(0,2)
-        flength = fString.tell()
-        fString.seek(0)
+        if fString != sys.stdin:
+            fString.seek(0,2)
+            flength = fString.tell()
+            fString.seek(0)
+        else:
+            flength = 1
         try:
             for i in range(1, flength):
                 char = fString.read(1)
@@ -130,12 +140,14 @@ class Converter:
 
     def asciiToHex(self, fString):
         value = ''
-        fString.seek(0)
+        if fString != sys.stdin:
+           fString.seek(0)
 
         # convert to bin, store in temp file
         file = "temp"
         tempFile = open(file, 'w+')
-        fString.seek(0)
+        if fString != sys.stdin:
+           fString.seek(0)
         while 1:
             char = fString.read(1)
             if not char: break
@@ -161,10 +173,12 @@ class Converter:
         value = ''
         # convert hex to bin and store in temp file
         try:
-            fString.seek(0,2)
-            flength = fString.tell()
-            fString.seek(0)
-
+            if fString != sys.stdin:
+                fString.seek(0,2)
+                flength = fString.tell()
+                fString.seek(0)
+            else:
+                flength = 4
             file = "temp"
             tempFile = open(file, 'w+')
 
